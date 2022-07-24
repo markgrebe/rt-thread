@@ -11,13 +11,11 @@
 
 #include <rtthread.h>
 
-#if defined(RT_USING_FINSH) && defined(DFS_USING_POSIX)
+#if defined(FINSH_USING_MSH) && defined(RT_USING_DFS)
 
 #include <finsh.h>
 #include "msh.h"
-#include <dfs_file.h>
-#include <unistd.h>
-#include <fcntl.h>
+#include <dfs_posix.h>
 
 static int msh_readline(int fd, char *line_buf, int size)
 {
@@ -80,7 +78,7 @@ int msh_exec_script(const char *cmd_line, int size)
     if (pg_name == RT_NULL) return -RT_ENOMEM;
 
     /* copy command0 */
-    rt_memcpy(pg_name, cmd_line, cmd_length);
+    memcpy(pg_name, cmd_line, cmd_length);
     pg_name[cmd_length] = '\0';
 
     if (strstr(pg_name, ".sh") != RT_NULL || strstr(pg_name, ".SH") != RT_NULL)
@@ -146,7 +144,7 @@ int msh_exec_script(const char *cmd_line, int size)
 }
 
 #ifdef DFS_USING_WORKDIR
-    extern char working_directory[];
+extern char working_directory[];
 #endif
 
 static int cmd_ls(int argc, char **argv)
@@ -614,27 +612,27 @@ static int cmd_tail(int argc, char **argv)
     rt_uint32_t target_line = 0;
     rt_uint32_t current_line = 0;
     rt_uint32_t required_lines = 0;
-    rt_uint32_t start_line = 0;
+    rt_uint32_t after_xxx_line = 0;
 
-    if (argc < 2)
+    if(argc < 2)
     {
         rt_kprintf("Usage: tail [-n numbers] <filename>\n");
         return -1;
     }
-    else if (argc == 2)
+    else if(argc == 2)
     {
         required_lines = 10; /* default: 10 lines from tail */
         file_name = argv[1];
     }
-    else if (rt_strcmp(argv[1], "-n") == 0)
+    else if(rt_strcmp(argv[1], "-n") == 0)
     {
-        if (argv[2][0] != '+')
+        if(argv[2][0] != '+')
         {
             required_lines = atoi(argv[2]);
         }
         else
         {
-            start_line = atoi(&argv[2][1]); /* eg: +100, to get the 100 */
+            after_xxx_line = atoi(&argv[2][1]); /* eg: +100, to get the 100 */
         }
         file_name = argv[3];
     }
@@ -653,10 +651,6 @@ static int cmd_tail(int argc, char **argv)
 
     while ((read(fd, &c, sizeof(char))) > 0)
     {
-        if(total_lines == 0)
-        {
-            total_lines++;
-        }
         if (c == '\n')
         {
             total_lines++;
@@ -665,11 +659,11 @@ static int cmd_tail(int argc, char **argv)
 
     rt_kprintf("\nTotal Number of lines:%d\n", total_lines);
 
-    if (start_line != 0)
+    if(after_xxx_line != 0)
     {
-        if (total_lines >= start_line)
+        if(total_lines > after_xxx_line)
         {
-            required_lines = total_lines - start_line + 1;
+            required_lines = total_lines - after_xxx_line;
         }
         else
         {
@@ -692,13 +686,13 @@ static int cmd_tail(int argc, char **argv)
 
     while ((read(fd, &c, sizeof(char))) > 0)
     {
-        if (current_line >= target_line)
-        {
-            rt_kprintf("%c", c);
-        }
         if (c == '\n')
         {
             current_line++;
+        }
+        if (current_line > target_line)
+        {
+            rt_kprintf("%c", c);
         }
     }
     rt_kprintf("\n");
@@ -706,6 +700,7 @@ static int cmd_tail(int argc, char **argv)
     close(fd);
     return 0;
 }
-MSH_CMD_EXPORT_ALIAS(cmd_tail, tail, print the last N - lines data of the given file);
+MSH_CMD_EXPORT_ALIAS(cmd_tail, tail, print the last N-lines data of the given file);
 
-#endif /* defined(RT_USING_FINSH) && defined(DFS_USING_POSIX) */
+#endif /* defined(FINSH_USING_MSH) && defined(RT_USING_DFS) */
+
