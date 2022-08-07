@@ -11,11 +11,27 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 
+#include <dfs_fs.h>
+#include <dfs_littlefs_pico.h>
+
 #define LED_PIN 25
 
 int main(void)
 {
     rt_kprintf("Hello, RT-Thread!\n");
+
+
+#ifdef RT_USING_DFS_LITTLEFS
+    rt_littlefs_init("littlefs");
+    if (dfs_mount("littlefs", "/", "littlefs", 0, 0) == 0)
+    {
+        rt_kprintf("File System on root initialized!\n");
+    }
+    else
+    {
+        rt_kprintf("File System on root initialization failed!\n");
+    }
+#endif
 
     rt_pin_mode(LED_PIN, PIN_MODE_OUTPUT);
 
@@ -27,4 +43,13 @@ int main(void)
         rt_thread_mdelay(1000);
     }
 }
+static int mark_times = 0;
+FINSH_VAR_EXPORT(mark_times, finsh_type_int, dummy variable for finsh)
 
+void marks_hello(int times)
+{
+    mark_times = times;
+    rt_kprintf("Mark says hello %d times\n", times);
+}
+
+FINSH_FUNCTION_EXPORT(marks_hello , say hello from mark);
