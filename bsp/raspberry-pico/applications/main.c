@@ -11,6 +11,9 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 
+#include <dfs_fs.h>
+#include <dfs_littlefs_pico.h>
+
 #define LED_PIN 25
 
 int main(void)
@@ -28,3 +31,13 @@ int main(void)
     }
 }
 
+static int mark_times = 0;
+FINSH_VAR_EXPORT(mark_times, finsh_type_int, dummy variable for finsh)
+
+void marks_hello(int times)
+{
+    mark_times = times;
+    rt_kprintf("Mark says hello %d times\n", times);
+}
+
+FINSH_FUNCTION_EXPORT(marks_hello , say hello from mark);

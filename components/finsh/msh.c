@@ -18,7 +18,9 @@
 #include <shell.h>
 
 #ifdef RT_USING_DFS
-#include <dfs_posix.h>
+#include <dfs_file.h>
+#include <unistd.h>
+#include <fcntl.h>
 #endif
 
 #ifdef RT_USING_MODULE

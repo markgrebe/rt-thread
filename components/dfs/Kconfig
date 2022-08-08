@@ -146,6 +146,10 @@ if RT_USING_DFS
         select RT_USING_MEMHEAP
         default n
 
+    config RT_USING_DFS_LITTLEFS
+        bool "Enable LittleFS Flash file system"
+        default n
+
     config RT_USING_DFS_NFS
         bool "Using NFS v3 client file system"
         depends on RT_USING_LWIP

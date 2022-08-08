@@ -98,7 +98,9 @@ int finsh_set_prompt(const char * prompt)
 #endif /* RT_USING_HEAP */
 
 #ifdef RT_USING_DFS
-#include <dfs_posix.h>
+#include <dfs_file.h>
+#include <unistd.h>
+#include <fcntl.h>
 #endif /* RT_USING_DFS */
 
 const char *finsh_get_prompt(void)
