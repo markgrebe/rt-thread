@@ -335,15 +335,6 @@ static const struct dfs_filesystem_ops _littlefs =
     dfs_littlefs_rename,
 };
 
-int dfs_littlefs_init(void)
-{
-    /* register ram file system */
-    dfs_register(&_littlefs);
-
-    return 0;
-}
-INIT_COMPONENT_EXPORT(dfs_littlefs_init);
-
 static rt_err_t nop_init(rt_device_t dev)
 {
     return RT_EOK;
@@ -403,3 +394,24 @@ rt_err_t rt_littlefs_init(const char *name)
     /* register to RT-Thread device system */
     return rt_device_register(dev, name, RT_DEVICE_FLAG_RDWR | RT_DEVICE_FLAG_STANDALONE);
 }
+
+int dfs_littlefs_init(void)
+{
+    /* register ram file system */
+    dfs_register(&_littlefs);
+
+    /* register littlefs device */
+    rt_littlefs_init("littlefs");
+
+    /* Mount the filesystem */
+    if (dfs_mount("littlefs", "/", "littlefs", 0, 0) == 0)
+    {
+        rt_kprintf("File System on root initialized!\n");
+    }
+    else
+    {
+        rt_kprintf("File System on root initialization failed!\n");
+    }
+    return 0;
+}
+INIT_COMPONENT_EXPORT(dfs_littlefs_init);
