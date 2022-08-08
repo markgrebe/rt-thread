@@ -200,7 +200,7 @@ int dfs_littlefs_open(struct dfs_fd *file)
 
         /* open directory */
         fd = pico_dir_open(file->path);
-        file->pos = 0;
+        file->pos = pico_tell(fd);
     }
     else
     {
@@ -271,11 +271,12 @@ int dfs_littlefs_getdents(struct dfs_fd *fd,
         else
             dirp[index].d_type = DT_DIR;
 
+        dirp[index].d_namlen = (rt_uint8_t)rt_strlen(info.name);
         dirp[index].d_reclen = (rt_uint16_t)sizeof(struct dirent);
         rt_strncpy(dirp[index].d_name, info.name, LFS_NAME_MAX+1);
 
         count_read++;
-        fd->pos += 1;
+        fd->pos += sizeof(struct dirent);
     }
     return count_read * sizeof(struct dirent);
 }
