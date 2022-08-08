@@ -12,4 +12,8 @@ for d in list:
 # Add File System Library
 objs = objs + SConscript('/home/student/pico/external_libs/littlefs-lib/SConscript')
 
+# Add Graphics Libraries
+objs = objs + SConscript('/home/student/pico/external_libs/hagl/SConscript')
+objs = objs + SConscript('/home/student/pico/external_libs/hagl_pico_mipi/SConscript')
+
 Return('objs')

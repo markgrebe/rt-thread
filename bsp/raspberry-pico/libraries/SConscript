@@ -122,9 +122,6 @@ CPPDEFINES = [
     'PICO_USE_BLOCKED_RAM=0'
 ]
 
-# Add File System Library
-# src = src + SConscript('littlefs-lib/SConscript')
-
 group = DefineGroup('Libraries', src, depend = [''], CPPPATH = path, CPPDEFINES = CPPDEFINES)
 
 Return('group')
