@@ -1,13 +1,22 @@
 from building import *
 
-cwd  = GetCurrentDir()
+#cwd  = GetCurrentDir()
 objs = []
-list = os.listdir(cwd)
+#list = os.listdir(cwd)
 
-for d in list:
-    path = os.path.join(cwd, d)
-    if os.path.isfile(os.path.join(path, 'SConscript')):
-        objs = objs + SConscript(os.path.join(d, 'SConscript'))
+#for d in list:
+#    path = os.path.join(cwd, d)
+#    if os.path.isfile(os.path.join(path, 'SConscript')):
+#        objs = objs + SConscript(os.path.join(d, 'SConscript'))
+
+# Add board files
+objs = objs + SConscript('board/SConscript')
+
+# Add drivers files
+objs = objs + SConscript('drivers/SConscript')
+
+# Add BSP libraries
+objs = objs + SConscript('libraries/SConscript')
 
 # Add File System Library
 objs = objs + SConscript('/home/student/pico/external_libs/littlefs-lib/SConscript')
@@ -15,5 +24,8 @@ objs = objs + SConscript('/home/student/pico/external_libs/littlefs-lib/SConscri
 # Add Graphics Libraries
 objs = objs + SConscript('/home/student/pico/external_libs/hagl/SConscript')
 objs = objs + SConscript('/home/student/pico/external_libs/hagl_pico_mipi/SConscript')
+
+# Add Application
+objs = objs + SConscript('/home/student/pico/rt-applications/thread_example/SConscript')
 
 Return('objs')
