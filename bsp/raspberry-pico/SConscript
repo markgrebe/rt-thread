@@ -26,6 +26,6 @@ objs = objs + SConscript('/home/student/pico/external_libs/hagl/SConscript')
 objs = objs + SConscript('/home/student/pico/external_libs/hagl_pico_mipi/SConscript')
 
 # Add Application
-objs = objs + SConscript('/home/student/pico/rt-applications/thread_example/SConscript')
+objs = objs + SConscript('/home/student/pico/rt-applications/blink/SConscript')
 
 Return('objs')
