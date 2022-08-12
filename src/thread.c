@@ -339,6 +339,7 @@ rt_thread_t rt_thread_self(void)
 #endif /* RT_USING_SMP */
 }
 RTM_EXPORT(rt_thread_self);
+CS4000_FUNCTION_EXPORT(rt_thread_self, t_self, Get Thread ID of current thread);
 
 /**
  * @brief   This function will start a thread and put it to system ready queue.
@@ -379,6 +380,7 @@ rt_err_t rt_thread_startup(rt_thread_t thread)
     return RT_EOK;
 }
 RTM_EXPORT(rt_thread_startup);
+CS4000_FUNCTION_EXPORT(rt_thread_startup, t_startup, Start a new thread);
 
 /**
  * @brief   This function will detach a thread. The thread object will be removed from
@@ -482,6 +484,7 @@ rt_thread_t rt_thread_create(const char *name,
     return thread;
 }
 RTM_EXPORT(rt_thread_create);
+CS4000_FUNCTION_EXPORT(rt_thread_create, t_create, Create a new thread);
 
 /**
  * @brief   This function will delete a thread. The thread object will be removed from
@@ -528,6 +531,8 @@ rt_err_t rt_thread_delete(rt_thread_t thread)
     return RT_EOK;
 }
 RTM_EXPORT(rt_thread_delete);
+CS4000_FUNCTION_EXPORT(rt_thread_delete, t_delete, Delete a thread);
+
 #endif /* RT_USING_HEAP */
 
 /**
@@ -597,6 +602,7 @@ rt_err_t rt_thread_sleep(rt_tick_t tick)
 
     return thread->error;
 }
+CS4000_FUNCTION_EXPORT(rt_thread_sleep, t_sleep, Delay a thread for specified system ticks);
 
 /**
  * @brief   This function will let current thread delay for some ticks.
@@ -611,6 +617,7 @@ rt_err_t rt_thread_delay(rt_tick_t tick)
     return rt_thread_sleep(tick);
 }
 RTM_EXPORT(rt_thread_delay);
+CS4000_FUNCTION_EXPORT(rt_thread_delay, t_delay, Delay a thread for specified system ticks);
 
 /**
  * @brief   This function will let current thread delay until (*tick + inc_tick).
@@ -676,6 +683,7 @@ rt_err_t rt_thread_delay_until(rt_tick_t *tick, rt_tick_t inc_tick)
     return thread->error;
 }
 RTM_EXPORT(rt_thread_delay_until);
+CS4000_FUNCTION_EXPORT(rt_thread_delay_until, t_delay_until, Delay a thread until tick time);
 
 /**
  * @brief   This function will let current thread delay for some milliseconds.
@@ -869,6 +877,7 @@ rt_err_t rt_thread_suspend(rt_thread_t thread)
     return RT_EOK;
 }
 RTM_EXPORT(rt_thread_suspend);
+CS4000_FUNCTION_EXPORT(rt_thread_suspend, t_suspend, Suspend a thread);
 
 /**
  * @brief   This function will resume a thread and put it to system ready queue.
@@ -914,6 +923,7 @@ rt_err_t rt_thread_resume(rt_thread_t thread)
     return RT_EOK;
 }
 RTM_EXPORT(rt_thread_resume);
+CS4000_FUNCTION_EXPORT(rt_thread_resume, t_resume, Resume a thread);
 
 /**
  * @brief   This function will find the specified thread.
@@ -931,5 +941,6 @@ rt_thread_t rt_thread_find(char *name)
 }
 
 RTM_EXPORT(rt_thread_find);
+CS4000_FUNCTION_EXPORT(rt_thread_find, t_find, Find a thread by name);
 
 /**@}*/

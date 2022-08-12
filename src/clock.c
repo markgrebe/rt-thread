@@ -69,6 +69,7 @@ rt_tick_t rt_tick_get(void)
     return rt_tick;
 }
 RTM_EXPORT(rt_tick_get);
+CS4000_FUNCTION_EXPORT(rt_tick_get, tick_get, Get the system tick count);
 
 /**
  * @brief    This function will set current tick.

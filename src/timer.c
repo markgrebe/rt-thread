@@ -363,6 +363,7 @@ rt_timer_t rt_timer_create(const char *name,
     return timer;
 }
 RTM_EXPORT(rt_timer_create);
+CS4000_FUNCTION_EXPORT(rt_timer_create, tm_create, Create a timer);
 
 /**
  * @brief This function will delete a timer and release timer memory
@@ -395,6 +396,7 @@ rt_err_t rt_timer_delete(rt_timer_t timer)
     return RT_EOK;
 }
 RTM_EXPORT(rt_timer_delete);
+CS4000_FUNCTION_EXPORT(rt_timer_delete, tm_delete, Delete a timer);
 #endif /* RT_USING_HEAP */
 
 /**
@@ -522,6 +524,7 @@ rt_err_t rt_timer_start(rt_timer_t timer)
     return RT_EOK;
 }
 RTM_EXPORT(rt_timer_start);
+CS4000_FUNCTION_EXPORT(rt_timer_start, tm_start, Start a timer);
 
 /**
  * @brief This function will stop the timer
@@ -556,6 +559,7 @@ rt_err_t rt_timer_stop(rt_timer_t timer)
     return RT_EOK;
 }
 RTM_EXPORT(rt_timer_stop);
+CS4000_FUNCTION_EXPORT(rt_timer_stop, tm_stop, Stop a timer);
 
 /**
  * @brief This function will get or set some options of the timer
@@ -619,6 +623,8 @@ rt_err_t rt_timer_control(rt_timer_t timer, int cmd, void *arg)
     return RT_EOK;
 }
 RTM_EXPORT(rt_timer_control);
+CS4000_FUNCTION_EXPORT(rt_timer_control, tm_control, Control a timer);
+
 
 /**
  * @brief This function will check timer list, if a timeout event happens,

@@ -197,6 +197,13 @@ struct finsh_syscall* finsh_syscall_lookup(const char* name);
 #define FINSH_FUNCTION_EXPORT_ALIAS(name, alias, desc)  \
         FINSH_FUNCTION_EXPORT_CMD(name, alias, desc)
 
+#ifdef FINSH_USING_CS4000
+#define CS4000_FUNCTION_EXPORT(name, alias, desc) \
+    FINSH_FUNCTION_EXPORT_ALIAS(name, alias, desc)
+#else
+#define CS4000_FUNCTION_EXPORT(name, alias, desc)
+#endif
+
 /**
  * @ingroup finsh
  *

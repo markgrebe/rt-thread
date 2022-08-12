@@ -413,6 +413,7 @@ rt_sem_t rt_sem_create(const char *name, rt_uint32_t value, rt_uint8_t flag)
     return sem;
 }
 RTM_EXPORT(rt_sem_create);
+CS4000_FUNCTION_EXPORT(rt_sem_create, s_create, Create a semaphore);
 
 
 /**
@@ -451,6 +452,7 @@ rt_err_t rt_sem_delete(rt_sem_t sem)
     return RT_EOK;
 }
 RTM_EXPORT(rt_sem_delete);
+CS4000_FUNCTION_EXPORT(rt_sem_delete, s_delete, Delete a semaphore);
 #endif /* RT_USING_HEAP */
 
 
@@ -568,6 +570,7 @@ rt_err_t rt_sem_take(rt_sem_t sem, rt_int32_t timeout)
     return RT_EOK;
 }
 RTM_EXPORT(rt_sem_take);
+CS4000_FUNCTION_EXPORT(rt_sem_take, s_take, Take a semaphore);
 
 
 /**
@@ -653,6 +656,7 @@ rt_err_t rt_sem_release(rt_sem_t sem)
     return RT_EOK;
 }
 RTM_EXPORT(rt_sem_release);
+CS4000_FUNCTION_EXPORT(rt_sem_release, s_release, Release a semaphore);
 
 
 /**
@@ -703,6 +707,7 @@ rt_err_t rt_sem_control(rt_sem_t sem, int cmd, void *arg)
     return -RT_ERROR;
 }
 RTM_EXPORT(rt_sem_control);
+CS4000_FUNCTION_EXPORT(rt_sem_control, s_control, Control a semaphore);
 
 /**@}*/
 #endif /* RT_USING_SEMAPHORE */
@@ -847,6 +852,7 @@ rt_mutex_t rt_mutex_create(const char *name, rt_uint8_t flag)
     return mutex;
 }
 RTM_EXPORT(rt_mutex_create);
+CS4000_FUNCTION_EXPORT(rt_mutex_create, m_create, Create a mutex);
 
 
 /**
@@ -885,6 +891,7 @@ rt_err_t rt_mutex_delete(rt_mutex_t mutex)
     return RT_EOK;
 }
 RTM_EXPORT(rt_mutex_delete);
+CS4000_FUNCTION_EXPORT(rt_mutex_delete, m_delete, Delete a mutex);
 #endif /* RT_USING_HEAP */
 
 
@@ -1051,6 +1058,7 @@ rt_err_t rt_mutex_take(rt_mutex_t mutex, rt_int32_t timeout)
     return RT_EOK;
 }
 RTM_EXPORT(rt_mutex_take);
+CS4000_FUNCTION_EXPORT(rt_mutex_take, m_take, Take a mutex);
 
 
 /**
@@ -1197,6 +1205,7 @@ rt_err_t rt_mutex_release(rt_mutex_t mutex)
     return RT_EOK;
 }
 RTM_EXPORT(rt_mutex_release);
+CS4000_FUNCTION_EXPORT(rt_mutex_release, m_release, Release a mutex);
 
 
 /**
@@ -1379,6 +1388,7 @@ rt_event_t rt_event_create(const char *name, rt_uint8_t flag)
     return event;
 }
 RTM_EXPORT(rt_event_create);
+CS4000_FUNCTION_EXPORT(rt_event_create, e_create, Create an event set);
 
 
 /**
@@ -1417,6 +1427,7 @@ rt_err_t rt_event_delete(rt_event_t event)
     return RT_EOK;
 }
 RTM_EXPORT(rt_event_delete);
+CS4000_FUNCTION_EXPORT(rt_event_delete, e_delete, Delete an event set);
 #endif /* RT_USING_HEAP */
 
 
@@ -1528,6 +1539,7 @@ rt_err_t rt_event_send(rt_event_t event, rt_uint32_t set)
     return RT_EOK;
 }
 RTM_EXPORT(rt_event_send);
+CS4000_FUNCTION_EXPORT(rt_event_send, e_send, Send an event);
 
 
 /**
@@ -1684,6 +1696,7 @@ rt_err_t rt_event_recv(rt_event_t   event,
     return thread->error;
 }
 RTM_EXPORT(rt_event_recv);
+CS4000_FUNCTION_EXPORT(rt_event_recv, e_recv, Receive an event);
 
 
 /**
@@ -2670,6 +2683,7 @@ rt_mq_t rt_mq_create(const char *name,
     return mq;
 }
 RTM_EXPORT(rt_mq_create);
+CS4000_FUNCTION_EXPORT(rt_mq_create, mq_create, Create a message queue);
 
 
 /**
@@ -2714,6 +2728,7 @@ rt_err_t rt_mq_delete(rt_mq_t mq)
     return RT_EOK;
 }
 RTM_EXPORT(rt_mq_delete);
+CS4000_FUNCTION_EXPORT(rt_mq_delete, mq_delete, Delete a message queue);
 #endif /* RT_USING_HEAP */
 
 
@@ -2908,6 +2923,7 @@ rt_err_t rt_mq_send_wait(rt_mq_t     mq,
     return RT_EOK;
 }
 RTM_EXPORT(rt_mq_send_wait)
+CS4000_FUNCTION_EXPORT(rt_mq_send_wait, mq_send_wait, Send a message to a queue);
 
 
 /**
@@ -3037,6 +3053,7 @@ rt_err_t rt_mq_urgent(rt_mq_t mq, const void *buffer, rt_size_t size)
     return RT_EOK;
 }
 RTM_EXPORT(rt_mq_urgent);
+CS4000_FUNCTION_EXPORT(rt_mq_urgent, mq_urgent, Send an urgent message to a queue);
 
 
 /**
@@ -3215,6 +3232,7 @@ rt_err_t rt_mq_recv(rt_mq_t    mq,
     return RT_EOK;
 }
 RTM_EXPORT(rt_mq_recv);
+CS4000_FUNCTION_EXPORT(rt_mq_recv, mq_recv, Receive a message from a queue);
 
 
 /**

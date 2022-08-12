@@ -1520,7 +1520,7 @@ RT_WEAK void *rt_malloc(rt_size_t size)
     return ptr;
 }
 RTM_EXPORT(rt_malloc);
-FINSH_FUNCTION_EXPORT(rt_malloc , Alloc memory);
+CS4000_FUNCTION_EXPORT(rt_malloc , rt_malloc, Alloc memory);
 
 /**
  * @brief This function will change the size of previously allocated memory block.
@@ -1573,7 +1573,7 @@ RT_WEAK void *rt_calloc(rt_size_t count, rt_size_t size)
     return p;
 }
 RTM_EXPORT(rt_calloc);
-FINSH_FUNCTION_EXPORT(rt_calloc , Alloc memory);
+CS4000_FUNCTION_EXPORT(rt_calloc , rt_calloc, Alloc memory);
 
 /**
  * @brief This function will release the previously allocated memory block by
@@ -1596,7 +1596,7 @@ RT_WEAK void rt_free(void *rmem)
     _heap_unlock(level);
 }
 RTM_EXPORT(rt_free);
-FINSH_FUNCTION_EXPORT(rt_free , Free memory);
+CS4000_FUNCTION_EXPORT(rt_free , rt_free, Free memory);
 
 /**
 * @brief This function will caculate the total memory, the used memory, and
