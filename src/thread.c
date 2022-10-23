@@ -943,4 +943,97 @@ rt_thread_t rt_thread_find(char *name)
 RTM_EXPORT(rt_thread_find);
 CS4000_FUNCTION_EXPORT(rt_thread_find, t_find, Find a thread by name);
 
+static int thread_num = 0;
+
+rt_thread_t tcs(void (*entry)(void *parameter),
+                void  *parameter)
+    {
+    char namebuf[10];
+    rt_thread_t tid;
+
+    snprintf(namebuf,9,"t%d",thread_num++);
+    tid = rt_thread_create(namebuf, entry, parameter, 10240, 16, 4);
+    if (tid != NULL)
+        rt_thread_startup(tid);
+    
+    return(tid);
+    }
+
+typedef struct repeat_p
+    {
+    int  count;
+    void (*entry)(void *parameter);
+    void * parameter;
+    } REPEAT_P;
+
+static void repeat_entry(void *parameter)
+    {
+    REPEAT_P *r_parameter = (REPEAT_P *)parameter;
+    int i;
+
+    if (r_parameter->count == 0)
+        {
+        while(1)
+            {
+            (*(r_parameter->entry))(r_parameter->parameter);
+            }
+        }
+    else
+        {
+        for (i=0; i<r_parameter->count; i++)
+            {
+            (*(r_parameter->entry))(r_parameter->parameter);
+            }
+        }
+    }
+
+rt_thread_t repeat(const char *name, int count,
+                   void (*entry)(void *parameter),
+                   void  *parameter)
+    {
+    REPEAT_P r_parameter;
+    r_parameter.count = count;
+    r_parameter.entry = entry;
+    r_parameter.parameter = parameter;
+
+    return tcs(repeat_entry, (void *) &r_parameter);
+    }
+
+RTM_EXPORT(repeat);
+CS4000_FUNCTION_EXPORT(repeat, repeat, Create thread which calls function n times);
+
+typedef struct period_p
+    {
+    int  secs;
+    void (*entry)(void *parameter);
+    void * parameter;
+    } PERIOD_P;
+
+static void period_entry(void *parameter)
+    {
+    PERIOD_P *p_parameter = (PERIOD_P *)parameter;
+    int i;
+
+    while(1)
+        {
+        (*(p_parameter->entry))(p_parameter->parameter);
+        rt_thread_mdelay(1000 * p_parameter->secs);
+        }
+    }
+
+rt_thread_t period(const char *name, int secs,
+                   void (*entry)(void *parameter),
+                   void  *parameter)
+    {
+    PERIOD_P p_parameter;
+    p_parameter.secs = secs;
+    p_parameter.entry = entry;
+    p_parameter.parameter = parameter;
+
+    return tcs(period_entry, (void *) &p_parameter);
+    }
+
+RTM_EXPORT(rt_period);
+CS4000_FUNCTION_EXPORT(period, period, Create thread which calls function every n secs);
+
 /**@}*/
