@@ -702,6 +702,7 @@ rt_err_t rt_thread_mdelay(rt_int32_t ms)
     return rt_thread_sleep(tick);
 }
 RTM_EXPORT(rt_thread_mdelay);
+CS4000_FUNCTION_EXPORT(rt_thread_mdelay, t_mdelay, Delay a thread for ms);
 
 /**
  * @brief   This function will control thread behaviors according to control command.
@@ -829,13 +830,6 @@ RTM_EXPORT(rt_thread_control);
 /**
  * @brief   This function will suspend the specified thread and change it to suspend state.
  *
- * @note    This function ONLY can suspend current thread itself.
- *              rt_thread_suspend(rt_thread_self());
- *
- *          Do not use the rt_thread_suspend to suspend other threads. You have no way of knowing what code a
- *          thread is executing when you suspend it. If you suspend a thread while sharing a resouce with
- *          other threads and occupying this resouce, starvation can occur very easily.
- *
  * @param   thread is the thread to be suspended.
  *
  * @return  Return the operation status. If the return value is RT_EOK, the function is successfully executed.
@@ -849,7 +843,9 @@ rt_err_t rt_thread_suspend(rt_thread_t thread)
     /* parameter check */
     RT_ASSERT(thread != RT_NULL);
     RT_ASSERT(rt_object_get_type((rt_object_t)thread) == RT_Object_Class_Thread);
-    RT_ASSERT(thread == rt_thread_self());
+    // This makes no sense, the shell should be able to suspend a 
+    // thread.
+    //RT_ASSERT(thread == rt_thread_self());
 
     RT_DEBUG_LOG(RT_DEBUG_THREAD, ("thread suspend:  %s\n", thread->name));
 
