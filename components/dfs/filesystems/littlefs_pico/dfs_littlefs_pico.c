@@ -416,3 +416,6 @@ int dfs_littlefs_init(void)
     return 0;
 }
 INIT_COMPONENT_EXPORT(dfs_littlefs_init);
+
+CS4000_FUNCTION_EXPORT(pico_mount, pico_mount, Mount the pico filesystem);
+CS4000_FUNCTION_EXPORT(pico_unmount, pico_unmount, Unmount the pico filesystem);
