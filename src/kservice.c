@@ -1331,6 +1331,7 @@ RT_WEAK int rt_kprintf(const char *fmt, ...)
     return length;
 }
 RTM_EXPORT(rt_kprintf);
+CS4000_FUNCTION_EXPORT(rt_kprintf, rt_kprintf, Print a message)
 #endif /* RT_USING_CONSOLE */
 
 #if defined(RT_USING_HEAP) && !defined(RT_USING_USERHEAP)

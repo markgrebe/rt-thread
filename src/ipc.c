@@ -2953,6 +2953,7 @@ rt_err_t rt_mq_send(rt_mq_t mq, const void *buffer, rt_size_t size)
     return rt_mq_send_wait(mq, buffer, size, 0);
 }
 RTM_EXPORT(rt_mq_send);
+CS4000_FUNCTION_EXPORT(rt_mq_send, mq_send, Send a message to a queue);
 
 
 /**
